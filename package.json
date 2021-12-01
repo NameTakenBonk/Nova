@@ -4,7 +4,7 @@
   "description": "A \"Simple\" discord bot.",
   "main": "bot.js",
   "scripts": {
-    "test": "bot src/bot.js"
+    "test": "node src/bot.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/NameTakenBonk/Nova/issues"
   },
-  "homepage": "https://github.com/NameTakenBonk/Nova#readme"
+  "homepage": "https://github.com/NameTakenBonk/Nova#readme",
+  "dependencies": {
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0"
+  }
 }
