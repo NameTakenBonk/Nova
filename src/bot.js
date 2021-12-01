@@ -1,14 +1,23 @@
 //Starting Varibles
-const {Client,Intents} = require("discord.js");
+const {Client,Intents,Collection} = require("discord.js");
+const fs = require("fs");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS]}); //I use client
+
+client.commands = new Collection();
+
 require("dotenv").config();
 
-//On ready will be moved in the commmand handler as an event
-client.on("ready", () =>{
-    console.log("Bot Ready!")
-});
+//Folders and file filtration
+const functions = fs.readdirSync("./src/functions").filter(file => file.endsWith(".js"));
+const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith(".js"));
+const commandFolders = fs.readdirSync("./src/commands");
 
-//Bot login btw token is saved in a dotencv so you can see :)
+//Void function
 (async () =>{
-  client.login(process.env.token);
+    for (file of functions) {
+        require(`./functions/${file}`)(client);
+    }
+    client.handleEvents(eventFiles, "./src/events");
+    client.handleCommands(commandFolders, "./src/commands");
+    client.login(process.env.token);
 })();
