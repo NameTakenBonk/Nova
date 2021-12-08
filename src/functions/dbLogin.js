@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const fs = require("fs")
+const fs = require("fs");
 const mongoEventFiles = fs.readdirSync("./src/mongoEvents").filter(file => file.endsWith(".js"));
 
-module.exports = (client) => {
-    client.dbLogin = async () => {
-        for (file of mongoEventFiles){
+module.exports = (client) =>{
+    client.dbLogin = async () =>{
+        for (file of mongoEventFiles) {
             const event = require(`../mongoEvents/${file}`);
             if (event.once) {
                 mongoose.connection.once(event.name, (...args) => event.execute(...args));
@@ -14,7 +14,7 @@ module.exports = (client) => {
         };
         mongoose.Promise = global.Promise;
         await mongoose.connect(process.env.dbToken,{
-            useUndifiedTopology: true,
+            useFindAndModify: false,
             useNewUrlParser: true,
         });
     };

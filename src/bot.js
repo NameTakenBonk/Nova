@@ -1,7 +1,13 @@
 //Starting Varibles
-const {Client,Intents,Collection} = require("discord.js");
+const {
+    Client,
+    Intents,
+    Collection
+} = require("discord.js");
 const fs = require("fs");
-const client = new Client({ intents: [Intents.FLAGS.GUILDS]}); //I use client
+const client = new Client({
+    intents: [Intents.FLAGS.GUILDS]
+}); //I use client
 
 client.commands = new Collection();
 
@@ -13,7 +19,7 @@ const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith("
 const commandFolders = fs.readdirSync("./src/commands");
 
 //Void function
-(async () =>{
+(async () => {
     for (file of functions) {
         require(`./functions/${file}`)(client);
     }
